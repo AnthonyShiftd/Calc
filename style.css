@@ -1,0 +1,85 @@
+body{
+    box-sizing: border-box;
+}
+
+.calc-body{
+    color: white;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    height: 450px;
+    border-radius: 20px;
+    background-color: rgb(193, 193, 193);
+    box-shadow: 4px 4px 5px rgb(79, 78, 78);
+}
+
+.calc-screen{
+    box-sizing: border-box;
+    width: 270px;
+    height: 100px;
+    margin: 0px auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px;
+    text-align: right;
+    line-height: 100px;
+    padding-right: 5px;
+    overflow: hidden;
+}
+
+.btn{
+    display: inline-block;
+    margin-top: 10px;
+    width: 60px;
+    height: 60px;
+    background: rgb(32, 32, 32);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 200;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 60px;
+}
+
+.btn:hover{
+    background: rgb(46, 45, 45);
+    cursor: pointer;
+}
+
+.btn:active{
+    transform: scale(0.95);
+}
+
+.flex{ 
+    display: flex;
+    justify-content: space-between;
+    margin: 0px auto;
+    width: 270px;
+}
+
+.zero{
+    width: 110px;
+    border-radius: 30px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.grey{
+    color: black;
+    font-size: 22px;
+    background-color: grey;
+}
+
+.grey:hover{
+    background-color: rgb(150, 150, 150);
+}
+
+.orange{
+    background-color: orange;
+    font-size: 36px;
+}
+
+.orange:hover{
+    background-color: rgb(247, 187, 76);
+}
+
+
