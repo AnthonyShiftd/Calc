@@ -5,7 +5,7 @@ function btnOnclick(){allBtn.forEach((item)=>{
     if(classlt === 'AC'){
     item.addEventListener('click', clean)
     }
-    else if(Number.isFinite(Number(inner)) === true || classlt === 'fr'){
+    else if(Number.isFinite(Number(inner)) === true){
         item.addEventListener('click', ()=>num(item))
     }
     else if(classlt === 'division'||classlt === 'mult'||classlt === 'minus'||classlt === 'plus'){
@@ -14,6 +14,12 @@ function btnOnclick(){allBtn.forEach((item)=>{
     else if(classlt === 'equals'){
         item.addEventListener('click', ()=>results(item))
     }
+    else if(classlt === 'fr'){
+        item.addEventListener('click', fr)
+    }
+    // else if(classlt === 'plusMinus'){
+    //     item.addEventListener('click', plusMinus)
+    // }
 })}
 
 
@@ -24,10 +30,16 @@ function num(item){
         display.innerHTML = printDisplay.displayNum
         statusCalc.numTap++
         console.log('num')
+        if(statusCalc.statusFr === true){
+            printDisplay.displayNum = printDisplay.displayNum/10
+            display.innerHTML = printDisplay.displayNum
+            statusCalc.statusFr = false
+        }
 }
 
 
 function symb(item){
+    statusCalc.statusFr = false
     statusCalc.memory.push(printDisplay.displayNum)
     statusCalc.state.push(item.innerHTML)
     statusCalc.numTap = 0
@@ -35,12 +47,19 @@ function symb(item){
         operation(statusCalc.memory[0], statusCalc.memory[1])
         display.innerHTML = printDisplay.result
     }
-    else if(statusCalc.memory.length>2 || statusCalc.statusEquals === true){
-        operation(printDisplay.result, statusCalc.memory[statusCalc.memory.length-1])
+    else if(statusCalc.memory.length>=2 && statusCalc.statusEquals === true){
+        display.innerHTML = printDisplay.result
+        statusCalc.statusEquals = false
+        console.log(statusCalc)
+        console.log(printDisplay)
+    }
+    else if(statusCalc.memory.length>2){
+        operation(printDisplay.result, statusCalc.memory[statusCalc.memory.length-2])
         display.innerHTML = printDisplay.result
     }
     printDisplay.NumArr = []
     printDisplay.displayNum = 0
+    console.log(typeof(printDisplay.result))
 }
 
 function operation(fn, sn){
@@ -58,14 +77,36 @@ function operation(fn, sn){
     }
     }
 
+ //Функционал точки
+ function fr(){
+    statusCalc.statusFr = true
+ }
+
+
+//  //Функционал +-
+//  function plusMinus(){
+//     statusCalc.memory.pop()
+//         if(printDisplay.displayNum === 0){
+//             printDisplay.result = printDisplay.result*(-1)
+//             display.innerHTML = printDisplay.result
+//             statusCalc.memory.push(printDisplay.result)
+//         }
+//         else{
+//         printDisplay.displayNum = printDisplay.displayNum*(-1)
+//         display.innerHTML = printDisplay.displayNum
+//         statusCalc.memory.push(printDisplay.displayNum)
+//         }
+//         console.log(statusCalc)
+//         console.log(printDisplay)
+//     }
 
  //Функционал =
  function results(item){
     statusCalc.statusEquals = true
     symb(item)
+    statusCalc.memory.push(printDisplay.result)
     statusCalc.state.pop()
-    statusCalc.statusEquals = false
-    console.log(statusCalc.state)
+    
  }
 
 //Функционал кнопки AC
@@ -74,10 +115,12 @@ function clean(){
     statusCalc.numTap = 0
     statusCalc.state = []
     statusCalc.memory = []
+    statusCalc.statusFr = false
     printDisplay.resultArr = []
     printDisplay.result = 0
     printDisplay.NumArr = []
     printDisplay.displayNum = 0
+    
     }
 
 
@@ -89,6 +132,7 @@ function clean(){
         state: [],
         memory: [],
         statusEquals: false,
+        statusFr: false,
     }
     const printDisplay = {
         resultArr:[],
